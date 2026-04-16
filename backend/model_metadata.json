@@ -1,0 +1,131 @@
+{
+  "model_type": "Random Forest Classifier",
+  "accuracy": 0.9127,
+  "accuracy_percent": 91.3,
+  "n_estimators": 100,
+  "feature_columns": [
+    "Age",
+    "Income",
+    "Home",
+    "Emp_length",
+    "Intent",
+    "Amount",
+    "Rate",
+    "Percent_income",
+    "Default",
+    "Cred_length"
+  ],
+  "encoding_maps": {
+    "Home": {
+      "MORTGAGE": 0,
+      "OTHER": 1,
+      "OWN": 2,
+      "RENT": 3
+    },
+    "Intent": {
+      "DEBTCONSOLIDATION": 0,
+      "EDUCATION": 1,
+      "HOMEIMPROVEMENT": 2,
+      "MEDICAL": 3,
+      "PERSONAL": 4,
+      "VENTURE": 5
+    },
+    "Default": {
+      "N": 0,
+      "Y": 1
+    }
+  },
+  "feature_importance": {
+    "Percent_income": 0.2721,
+    "Rate": 0.1999,
+    "Income": 0.1551,
+    "Home": 0.1291,
+    "Amount": 0.0645,
+    "Intent": 0.0593,
+    "Emp_length": 0.0477,
+    "Age": 0.0295,
+    "Cred_length": 0.0236,
+    "Default": 0.0191
+  },
+  "classification_report": {
+    "precision_rejected": 0.907,
+    "recall_rejected": 0.9898,
+    "precision_approved": 0.9457,
+    "recall_approved": 0.6364
+  },
+  "dataset_stats": {
+    "total_records": 32581,
+    "approved_count": 7108,
+    "rejected_count": 25473,
+    "approval_rate": 21.8,
+    "intent_distribution": {
+      "EDUCATION": 6453,
+      "MEDICAL": 6071,
+      "VENTURE": 5719,
+      "PERSONAL": 5521,
+      "DEBTCONSOLIDATION": 5212,
+      "HOMEIMPROVEMENT": 3605
+    },
+    "home_distribution": {
+      "RENT": 16446,
+      "MORTGAGE": 13444,
+      "OWN": 2584,
+      "OTHER": 107
+    },
+    "default_distribution": {
+      "N": 26836,
+      "Y": 5745
+    },
+    "age_distribution": {
+      "18-25": 15352,
+      "26-30": 9472,
+      "31-35": 4291,
+      "36-40": 1972,
+      "41-50": 1206,
+      "50+": 288
+    },
+    "income_stats": {
+      "mean": 66074.85,
+      "median": 55000.0,
+      "min": 4000.0,
+      "max": 6000000.0,
+      "std": 61983.12
+    },
+    "amount_stats": {
+      "mean": 9589.37,
+      "median": 8000.0,
+      "min": 500.0,
+      "max": 35000.0
+    },
+    "rate_stats": {
+      "mean": 11.01,
+      "median": 10.99,
+      "min": 5.42,
+      "max": 23.22
+    },
+    "approval_by_intent": {
+      "PERSONAL": 19.9,
+      "EDUCATION": 17.2,
+      "MEDICAL": 26.7,
+      "VENTURE": 14.8,
+      "HOMEIMPROVEMENT": 26.1,
+      "DEBTCONSOLIDATION": 28.6
+    },
+    "approval_by_home": {
+      "RENT": 31.6,
+      "OWN": 7.5,
+      "MORTGAGE": 12.6,
+      "OTHER": 30.8
+    }
+  },
+  "confusion_matrix": [
+    [
+      5043,
+      52
+    ],
+    [
+      517,
+      905
+    ]
+  ]
+}
