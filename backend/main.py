@@ -139,14 +139,14 @@ def encode_input(application: LoanApplication) -> np.ndarray:
 
 def get_risk_level(confidence: float, prediction: int) -> str:
     """Determine risk level based on confidence and prediction"""
-    if prediction == 1:  # Approved
+    if prediction == 0:  # Approved (0 = Non-default)
         if confidence >= 80:
             return "Low Risk"
         elif confidence >= 60:
             return "Medium Risk"
         else:
             return "High Risk"
-    else:  # Rejected
+    else:  # Rejected (1 = Default)
         if confidence >= 80:
             return "High Risk"
         elif confidence >= 60:
@@ -261,7 +261,7 @@ async def predict_loan(application: LoanApplication):
         factors = get_key_factors(application)
 
         return PredictionResponse(
-            prediction="Approved" if prediction == 1 else "Rejected",
+            prediction="Approved" if prediction == 0 else "Rejected",
             prediction_code=prediction,
             confidence=confidence,
             risk_level=risk_level,

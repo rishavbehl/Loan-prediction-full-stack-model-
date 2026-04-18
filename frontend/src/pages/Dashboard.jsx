@@ -287,11 +287,11 @@ function Dashboard() {
       <div className="financial-stats animate-fade-in-up stagger-2">
         <div className="fin-card">
           <span className="fin-label">Avg Income</span>
-          <span className="fin-value">${stats.income_stats?.mean?.toLocaleString()}</span>
+          <span className="fin-value">₹{stats.income_stats?.mean?.toLocaleString()}</span>
         </div>
         <div className="fin-card">
           <span className="fin-label">Avg Loan Amount</span>
-          <span className="fin-value">${stats.amount_stats?.mean?.toLocaleString()}</span>
+          <span className="fin-value">₹{stats.amount_stats?.mean?.toLocaleString()}</span>
         </div>
         <div className="fin-card">
           <span className="fin-label">Avg Interest Rate</span>
@@ -299,7 +299,7 @@ function Dashboard() {
         </div>
         <div className="fin-card">
           <span className="fin-label">Max Loan Amount</span>
-          <span className="fin-value">${stats.amount_stats?.max?.toLocaleString()}</span>
+          <span className="fin-value">₹{stats.amount_stats?.max?.toLocaleString()}</span>
         </div>
       </div>
 
