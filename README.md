@@ -42,8 +42,8 @@ loan-prediction/
 |------------|-------------------|
 | ML Model   | Scikit-Learn (Random Forest) |
 | Backend    | Python, FastAPI, Uvicorn |
-| Frontend   | React, Vite, Chart.js |
-| Styling    | Vanilla CSS (Dark Theme) |
+| Frontend   | HTML, CSS, JavaScript, React, Vite, Chart.js |
+| Styling    | CSS (Dark Theme) |
 
 ## How to Run
 

@@ -126,9 +126,9 @@ function PredictionForm() {
             <div className="form-group">
               <label htmlFor="income">
                 <span className="label-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 3h12M6 8h12M6 13h8.5l-8 8h5l8-8v-2H6z"/></svg>
                 </span>
-                Annual Income ($)
+                Annual Income (₹)
               </label>
               <input 
                 type="number" id="income" name="income"
@@ -190,9 +190,9 @@ function PredictionForm() {
             <div className="form-group">
               <label htmlFor="amount">
                 <span className="label-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 4H3a2 2 0 00-2 2v12a2 2 0 002 2h18a2 2 0 002-2V6a2 2 0 00-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 3h12M6 8h12M6 13h8.5l-8 8h5l8-8v-2H6z"/></svg>
                 </span>
-                Loan Amount ($)
+                Loan Amount (₹)
               </label>
               <input 
                 type="number" id="amount" name="amount"
