@@ -30,10 +30,10 @@ ChartJS.defaults.borderColor = 'rgba(255, 255, 255, 0.06)';
 ChartJS.defaults.font.family = "'Inter', sans-serif";
 
 /**
- * Dashboard Page
- * ==============
- * Beautiful analytics dashboard showing dataset insights,
- * model performance, and interactive charts.
+ * Dashboard Page (v2.0)
+ * =====================
+ * Updated to display CIBIL score distribution and Indian Banking metrics
+ * based on the new HistGradientBoosting model metadata.
  */
 function Dashboard() {
   const [stats, setStats] = useState(null);
@@ -55,7 +55,7 @@ function Dashboard() {
       setStats(statsData);
       setModelInfo(modelData);
     } catch (err) {
-      setError('Failed to load dashboard data. Make sure the backend is running!');
+      setError('Failed to load dashboard data. Make sure the backend is running and model is trained!');
     } finally {
       setLoading(false);
     }
@@ -65,7 +65,7 @@ function Dashboard() {
     return (
       <div className="dashboard-loading">
         <div className="loading-spinner"></div>
-        <p>Loading dashboard data...</p>
+        <p>Loading banking analytics...</p>
       </div>
     );
   }
@@ -95,27 +95,19 @@ function Dashboard() {
     }]
   };
 
-  // 2. Loan Intent Distribution Bar Chart
-  const intentLabels = Object.keys(stats.intent_distribution || {});
-  const intentValues = Object.values(stats.intent_distribution || {});
-  const intentColors = [
-    'rgba(99, 102, 241, 0.7)',
-    'rgba(139, 92, 246, 0.7)',
-    'rgba(59, 130, 246, 0.7)',
-    'rgba(14, 165, 233, 0.7)',
-    'rgba(20, 184, 166, 0.7)',
-    'rgba(168, 85, 247, 0.7)',
-  ];
-
-  const intentChartData = {
-    labels: intentLabels.map(l => l.charAt(0) + l.slice(1).toLowerCase()),
+  // 2. CIBIL Score Distribution Bar Chart
+  const cibilLabels = Object.keys(stats.cibil_distribution || {});
+  const cibilValues = Object.values(stats.cibil_distribution || {});
+  
+  const cibilChartData = {
+    labels: cibilLabels,
     datasets: [{
       label: 'Number of Applications',
-      data: intentValues,
-      backgroundColor: intentColors,
-      borderColor: intentColors.map(c => c.replace('0.7', '1')),
+      data: cibilValues,
+      backgroundColor: 'rgba(59, 130, 246, 0.6)',
+      borderColor: 'rgba(59, 130, 246, 1)',
       borderWidth: 1,
-      borderRadius: 8,
+      borderRadius: 6,
       borderSkipped: false,
     }]
   };
@@ -141,26 +133,32 @@ function Dashboard() {
     }]
   };
 
-  // 4. Approval Rate by Intent Bar Chart
-  const approvalByIntentData = {
-    labels: Object.keys(stats.approval_by_intent || {}).map(l => l.charAt(0) + l.slice(1).toLowerCase()),
+  // 4. Approval Rate by CIBIL Band Bar Chart
+  const approvalByCibilData = {
+    labels: Object.keys(stats.approval_by_cibil || {}),
     datasets: [{
       label: 'Approval Rate (%)',
-      data: Object.values(stats.approval_by_intent || {}),
-      backgroundColor: 'rgba(99, 102, 241, 0.6)',
-      borderColor: 'rgba(99, 102, 241, 1)',
+      data: Object.values(stats.approval_by_cibil || {}),
+      backgroundColor: 'rgba(34, 197, 94, 0.6)',
+      borderColor: 'rgba(34, 197, 94, 1)',
       borderWidth: 1,
-      borderRadius: 8,
+      borderRadius: 6,
       borderSkipped: false,
     }]
   };
 
   // 5. Feature Importance Radar
-  const featureLabels = Object.keys(modelInfo?.feature_importance || {});
-  const featureValues = Object.values(modelInfo?.feature_importance || {}).map(v => v * 100);
+  const featureLabels = Object.keys(modelInfo?.feature_importance || {}).slice(0, 8); // Top 8 features
+  const featureValues = Object.values(modelInfo?.feature_importance || {}).slice(0, 8).map(v => v * 100);
+
+  // Map API keys to Display names for radar chart
+  const radarLabels = featureLabels.map(featKey => {
+    const idx = modelInfo?.feature_columns?.indexOf(featKey);
+    return idx >= 0 && modelInfo?.feature_display_names ? modelInfo.feature_display_names[idx] : featKey;
+  });
 
   const featureRadarData = {
-    labels: featureLabels.map(l => l.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())),
+    labels: radarLabels,
     datasets: [{
       label: 'Importance (%)',
       data: featureValues,
@@ -174,16 +172,19 @@ function Dashboard() {
     }]
   };
 
-  // 6. Age Distribution Bar
-  const ageDistData = {
-    labels: Object.keys(stats.age_distribution || {}),
+  // 6. Loan Purpose Distribution Bar
+  const purposeLabels = Object.keys(stats.purpose_distribution || {}).slice(0, 8); // Top 8 purposes
+  const purposeValues = Object.values(stats.purpose_distribution || {}).slice(0, 8);
+
+  const purposeDistData = {
+    labels: purposeLabels.map(l => l.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())),
     datasets: [{
-      label: 'Applicants',
-      data: Object.values(stats.age_distribution || {}),
+      label: 'Applications',
+      data: purposeValues,
       backgroundColor: 'rgba(139, 92, 246, 0.6)',
       borderColor: 'rgba(139, 92, 246, 1)',
       borderWidth: 1,
-      borderRadius: 8,
+      borderRadius: 6,
       borderSkipped: false,
     }]
   };
@@ -221,7 +222,7 @@ function Dashboard() {
         beginAtZero: true,
         grid: { color: 'rgba(255,255,255,0.06)' },
         angleLines: { color: 'rgba(255,255,255,0.06)' },
-        pointLabels: { font: { size: 10 } },
+        pointLabels: { font: { size: 10, color: 'rgba(255,255,255,0.7)' } },
       },
     },
   };
@@ -230,13 +231,13 @@ function Dashboard() {
     <div className="dashboard-page">
       {/* Hero */}
       <div className="dashboard-hero animate-fade-in-up">
-        <div className="hero-badge">Analytics Dashboard</div>
+        <div className="hero-badge">Banking Analytics</div>
         <h1 className="hero-title">
           Dataset <span className="gradient-text">Insights</span>
         </h1>
         <p className="hero-subtitle">
           Comprehensive analytics from {stats.total_records?.toLocaleString()} loan applications — 
-          powered by our {modelInfo?.accuracy_percent}% accurate Random Forest model.
+          powered by our {modelInfo?.accuracy_percent}% accurate ML model.
         </p>
       </div>
 
@@ -286,6 +287,10 @@ function Dashboard() {
       {/* Financial Stats */}
       <div className="financial-stats animate-fade-in-up stagger-2">
         <div className="fin-card">
+          <span className="fin-label">Avg CIBIL Score</span>
+          <span className="fin-value">{stats.cibil_stats?.mean}</span>
+        </div>
+        <div className="fin-card">
           <span className="fin-label">Avg Income</span>
           <span className="fin-value">₹{stats.income_stats?.mean?.toLocaleString()}</span>
         </div>
@@ -296,10 +301,6 @@ function Dashboard() {
         <div className="fin-card">
           <span className="fin-label">Avg Interest Rate</span>
           <span className="fin-value">{stats.rate_stats?.mean}%</span>
-        </div>
-        <div className="fin-card">
-          <span className="fin-label">Max Loan Amount</span>
-          <span className="fin-value">₹{stats.amount_stats?.max?.toLocaleString()}</span>
         </div>
       </div>
 
@@ -314,12 +315,18 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* Loan Intent Distribution */}
-        <div className="chart-card animate-fade-in-up stagger-3" id="chart-intent">
-          <h3 className="chart-title">Loan Purpose Distribution</h3>
-          <p className="chart-subtitle">Number of applications by loan purpose</p>
+        {/* CIBIL Distribution */}
+        <div className="chart-card animate-fade-in-up stagger-3" id="chart-cibil">
+          <h3 className="chart-title">CIBIL Score Distribution</h3>
+          <p className="chart-subtitle">Number of applicants in each CIBIL band</p>
           <div className="chart-container">
-            <Bar data={intentChartData} options={barOptions} />
+            <Bar data={cibilChartData} options={{
+              ...barOptions,
+              scales: {
+                x: { grid: { display: false }, ticks: { maxRotation: 45, minRotation: 45 } },
+                y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.04)' } }
+              }
+            }} />
           </div>
         </div>
 
@@ -332,35 +339,41 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* Approval by Intent */}
-        <div className="chart-card animate-fade-in-up stagger-4" id="chart-approval-intent">
-          <h3 className="chart-title">Approval Rate by Purpose</h3>
-          <p className="chart-subtitle">How loan purpose affects approval chances</p>
+        {/* Approval by CIBIL */}
+        <div className="chart-card animate-fade-in-up stagger-4" id="chart-approval-cibil">
+          <h3 className="chart-title">Approval Rate by CIBIL Score</h3>
+          <p className="chart-subtitle">How CIBIL score affects approval chances</p>
           <div className="chart-container">
-            <Bar data={approvalByIntentData} options={{
+            <Bar data={approvalByCibilData} options={{
               ...barOptions,
-              plugins: { ...barOptions.plugins, legend: { display: false } },
               scales: {
-                ...barOptions.scales,
-                y: { ...barOptions.scales.y, max: 100, ticks: { callback: v => v + '%' } },
+                x: { grid: { display: false }, ticks: { maxRotation: 45, minRotation: 45 } },
+                y: { max: 100, beginAtZero: true, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => v + '%' } }
               }
             }} />
           </div>
         </div>
 
-        {/* Age Distribution */}
-        <div className="chart-card animate-fade-in-up stagger-4" id="chart-age">
-          <h3 className="chart-title">Age Distribution</h3>
-          <p className="chart-subtitle">Age groups of loan applicants</p>
+        {/* Purpose Distribution */}
+        <div className="chart-card animate-fade-in-up stagger-4" id="chart-purpose">
+          <h3 className="chart-title">Top Loan Purposes</h3>
+          <p className="chart-subtitle">Most common reasons for taking a loan</p>
           <div className="chart-container">
-            <Bar data={ageDistData} options={barOptions} />
+            <Bar data={purposeDistData} options={{
+              ...barOptions,
+              indexAxis: 'y',
+              scales: {
+                y: { grid: { display: false } },
+                x: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.04)' } }
+              }
+            }} />
           </div>
         </div>
 
         {/* Feature Importance Radar */}
         <div className="chart-card animate-fade-in-up stagger-5" id="chart-features">
-          <h3 className="chart-title">Feature Importance</h3>
-          <p className="chart-subtitle">What matters most for loan approval</p>
+          <h3 className="chart-title">Top Feature Importance</h3>
+          <p className="chart-subtitle">What matters most for loan approval decisions</p>
           <div className="chart-container chart-small">
             <Radar data={featureRadarData} options={radarOptions} />
           </div>

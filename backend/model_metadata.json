@@ -1,131 +1,118 @@
 {
-  "model_type": "Random Forest Classifier",
-  "accuracy": 0.9127,
-  "accuracy_percent": 91.3,
-  "n_estimators": 100,
+  "model_type": "Tuned HistGradientBoosting",
+  "accuracy": 0.6579,
+  "accuracy_percent": 65.8,
+  "train_accuracy": 0.6676,
+  "cv_mean_accuracy": 0.6563,
+  "cv_std_accuracy": 0.0008,
+  "auc_roc": 0.7194,
+  "f1_score": 0.6499,
+  "overfit_gap": 0.0097,
+  "n_estimators_actual": 239,
+  "learning_rate": 0.0552,
+  "max_depth": 10,
   "feature_columns": [
-    "Age",
-    "Income",
-    "Home",
-    "Emp_length",
-    "Intent",
-    "Amount",
-    "Rate",
-    "Percent_income",
-    "Default",
-    "Cred_length"
+    "cibil_score",
+    "annual_income",
+    "loan_amount",
+    "int_rate",
+    "dti",
+    "emp_length_years",
+    "term_months",
+    "home_encoded",
+    "purpose_encoded",
+    "grade_encoded",
+    "open_acc",
+    "revol_util",
+    "total_acc",
+    "pub_rec",
+    "mort_acc",
+    "delinq_2yrs",
+    "inq_last_6mths",
+    "loan_to_income",
+    "credit_burden"
+  ],
+  "feature_display_names": [
+    "CIBIL Score",
+    "Annual Income",
+    "Loan Amount",
+    "Interest Rate",
+    "DTI",
+    "Employment Length",
+    "Loan Term",
+    "Home Ownership",
+    "Loan Purpose",
+    "Credit Grade",
+    "Open Accounts",
+    "Revolving Utilization",
+    "Total Accounts",
+    "Public Records",
+    "Mortgage Accounts",
+    "Delinquencies (2yr)",
+    "Inquiries (6mo)",
+    "Loan-to-Income (LTI)",
+    "Total Credit Burden"
   ],
   "encoding_maps": {
-    "Home": {
-      "MORTGAGE": 0,
-      "OTHER": 1,
-      "OWN": 2,
-      "RENT": 3
+    "home_ownership": {
+      "RENT": 0,
+      "OWN": 1,
+      "MORTGAGE": 2,
+      "OTHER": 3,
+      "NONE": 3,
+      "ANY": 3
     },
-    "Intent": {
-      "DEBTCONSOLIDATION": 0,
-      "EDUCATION": 1,
-      "HOMEIMPROVEMENT": 2,
-      "MEDICAL": 3,
-      "PERSONAL": 4,
-      "VENTURE": 5
+    "purpose": {
+      "car": 0,
+      "credit_card": 1,
+      "debt_consolidation": 2,
+      "educational": 3,
+      "home_improvement": 4,
+      "house": 5,
+      "major_purchase": 6,
+      "medical": 7,
+      "moving": 8,
+      "other": 9,
+      "renewable_energy": 10,
+      "small_business": 11,
+      "vacation": 12,
+      "wedding": 13
     },
-    "Default": {
-      "N": 0,
-      "Y": 1
+    "grade": {
+      "A": 1,
+      "B": 2,
+      "C": 3,
+      "D": 4,
+      "E": 5,
+      "F": 6,
+      "G": 7
     }
   },
   "feature_importance": {
-    "Percent_income": 0.2721,
-    "Rate": 0.1999,
-    "Income": 0.1551,
-    "Home": 0.1291,
-    "Amount": 0.0645,
-    "Intent": 0.0593,
-    "Emp_length": 0.0477,
-    "Age": 0.0295,
-    "Cred_length": 0.0236,
-    "Default": 0.0191
-  },
-  "classification_report": {
-    "precision_rejected": 0.907,
-    "recall_rejected": 0.9898,
-    "precision_approved": 0.9457,
-    "recall_approved": 0.6364
+    "grade_encoded": 0.0365,
+    "term_months": 0.0136,
+    "cibil_score": 0.0063,
+    "int_rate": 0.0052,
+    "loan_to_income": 0.0048,
+    "dti": 0.0039,
+    "mort_acc": 0.0027,
+    "home_encoded": 0.0021,
+    "total_acc": 0.0019,
+    "inq_last_6mths": 0.0018,
+    "emp_length_years": 0.0015,
+    "purpose_encoded": 0.0013,
+    "loan_amount": 0.0012,
+    "annual_income": 0.0009,
+    "pub_rec": 0.0006,
+    "open_acc": 0.0004,
+    "delinq_2yrs": 0.0004,
+    "revol_util": 0.0003,
+    "credit_burden": -0.0002
   },
   "dataset_stats": {
-    "total_records": 32581,
-    "approved_count": 7108,
-    "rejected_count": 25473,
-    "approval_rate": 21.8,
-    "intent_distribution": {
-      "EDUCATION": 6453,
-      "MEDICAL": 6071,
-      "VENTURE": 5719,
-      "PERSONAL": 5521,
-      "DEBTCONSOLIDATION": 5212,
-      "HOMEIMPROVEMENT": 3605
-    },
-    "home_distribution": {
-      "RENT": 16446,
-      "MORTGAGE": 13444,
-      "OWN": 2584,
-      "OTHER": 107
-    },
-    "default_distribution": {
-      "N": 26836,
-      "Y": 5745
-    },
-    "age_distribution": {
-      "18-25": 15352,
-      "26-30": 9472,
-      "31-35": 4291,
-      "36-40": 1972,
-      "41-50": 1206,
-      "50+": 288
-    },
-    "income_stats": {
-      "mean": 66074.85,
-      "median": 55000.0,
-      "min": 4000.0,
-      "max": 6000000.0,
-      "std": 61983.12
-    },
-    "amount_stats": {
-      "mean": 9589.37,
-      "median": 8000.0,
-      "min": 500.0,
-      "max": 35000.0
-    },
-    "rate_stats": {
-      "mean": 11.01,
-      "median": 10.99,
-      "min": 5.42,
-      "max": 23.22
-    },
-    "approval_by_intent": {
-      "PERSONAL": 19.9,
-      "EDUCATION": 17.2,
-      "MEDICAL": 26.7,
-      "VENTURE": 14.8,
-      "HOMEIMPROVEMENT": 26.1,
-      "DEBTCONSOLIDATION": 28.6
-    },
-    "approval_by_home": {
-      "RENT": 31.6,
-      "OWN": 7.5,
-      "MORTGAGE": 12.6,
-      "OTHER": 30.8
-    }
-  },
-  "confusion_matrix": [
-    [
-      5043,
-      52
-    ],
-    [
-      517,
-      905
-    ]
-  ]
+    "total_records": 300000,
+    "approved_count": 150000,
+    "rejected_count": 150000,
+    "approval_rate": 50.0
+  }
 }

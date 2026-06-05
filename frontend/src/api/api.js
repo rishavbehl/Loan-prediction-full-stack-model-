@@ -1,6 +1,7 @@
 /**
- * API Service - Connects React frontend to FastAPI backend
- * =========================================================
+ * API Service - Connects React frontend to FastAPI backend (v2.0)
+ * ================================================================
+ * Updated for CIBIL Score Banking System
  * Base URL: http://localhost:8000
  */
 
@@ -8,8 +9,8 @@ const API_BASE_URL = 'http://localhost:8000';
 
 /**
  * Submit a loan application for prediction
- * @param {Object} applicationData - Loan application form data
- * @returns {Object} Prediction result with confidence and risk level
+ * @param {Object} applicationData - Loan application form data with CIBIL score
+ * @returns {Object} Prediction result with confidence, risk level, and credit grade
  */
 export async function predictLoan(applicationData) {
   try {
@@ -33,7 +34,7 @@ export async function predictLoan(applicationData) {
 
 /**
  * Get dataset statistics for the dashboard
- * @returns {Object} Dataset statistics (distributions, rates, etc.)
+ * @returns {Object} Dataset statistics (distributions, rates, CIBIL stats, etc.)
  */
 export async function getStats() {
   try {
@@ -48,7 +49,7 @@ export async function getStats() {
 
 /**
  * Get model performance info and feature importance
- * @returns {Object} Model metadata (accuracy, features, etc.)
+ * @returns {Object} Model metadata (accuracy, CV scores, features, etc.)
  */
 export async function getModelInfo() {
   try {
