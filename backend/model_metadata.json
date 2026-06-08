@@ -1,16 +1,182 @@
 {
-  "model_type": "Tuned HistGradientBoosting",
-  "accuracy": 0.6579,
-  "accuracy_percent": 65.8,
-  "train_accuracy": 0.6676,
-  "cv_mean_accuracy": 0.6563,
+  "model_type": "Banking-Grade HistGradientBoosting v5.0",
+  "version": "5.0",
+  "training_time_seconds": 9717.1,
+  "accuracy": 0.6603,
+  "accuracy_percent": 66.0,
+  "train_accuracy": 0.671,
+  "precision": 0.6679,
+  "recall": 0.6378,
+  "f1_score": 0.6525,
+  "specificity": 0.6829,
+  "sensitivity": 0.6378,
+  "false_positive_rate": 0.3171,
+  "false_negative_rate": 0.3622,
+  "confusion_matrix": {
+    "true_negative": 20488,
+    "false_positive": 9512,
+    "false_negative": 10867,
+    "true_positive": 19133
+  },
+  "classification_report": {
+    "Rejected": {
+      "precision": 0.6534,
+      "recall": 0.6829,
+      "f1-score": 0.6679,
+      "support": 30000.0
+    },
+    "Approved": {
+      "precision": 0.6679,
+      "recall": 0.6378,
+      "f1-score": 0.6525,
+      "support": 30000.0
+    }
+  },
+  "auc_roc": 0.722,
+  "train_auc_roc": 0.7363,
+  "auc_grade": "FAIR",
+  "gini_coefficient": 0.4441,
+  "ks_statistic": 32.14,
+  "ks_threshold": 0.5067,
+  "overfit_gap": 0.0106,
+  "overfit_gap_auc": 0.0143,
+  "fit_diagnosis": "GOOD FIT",
+  "cv_mean_accuracy": 0.6576,
   "cv_std_accuracy": 0.0008,
-  "auc_roc": 0.7194,
-  "f1_score": 0.6499,
-  "overfit_gap": 0.0097,
-  "n_estimators_actual": 239,
-  "learning_rate": 0.0552,
-  "max_depth": 10,
+  "cv_fold_scores": [
+    0.6562,
+    0.658,
+    0.6586,
+    0.6573,
+    0.6577
+  ],
+  "cv_auc_fold_scores": [
+    0.7177,
+    0.7195,
+    0.7199,
+    0.7158,
+    0.7178
+  ],
+  "cv_mean_auc": 0.7182,
+  "learning_curve": [
+    {
+      "train_size": 16000,
+      "train_auc": 0.7812,
+      "val_auc": 0.7078,
+      "gap": 0.0734
+    },
+    {
+      "train_size": 32000,
+      "train_auc": 0.7548,
+      "val_auc": 0.7103,
+      "gap": 0.0444
+    },
+    {
+      "train_size": 64000,
+      "train_auc": 0.7449,
+      "val_auc": 0.714,
+      "gap": 0.0308
+    },
+    {
+      "train_size": 96000,
+      "train_auc": 0.7442,
+      "val_auc": 0.7157,
+      "gap": 0.0285
+    },
+    {
+      "train_size": 128000,
+      "train_auc": 0.744,
+      "val_auc": 0.7165,
+      "gap": 0.0274
+    },
+    {
+      "train_size": 160000,
+      "train_auc": 0.7422,
+      "val_auc": 0.7175,
+      "gap": 0.0248
+    }
+  ],
+  "hosmer_lemeshow": {
+    "chi2": 8.2085,
+    "p_value": 0.4134,
+    "df": 8,
+    "result": "PASS"
+  },
+  "brier_score": 0.2125,
+  "log_loss": 0.6128,
+  "psi": {
+    "value": 0.0001,
+    "result": "STABLE"
+  },
+  "odds_ratio_by_cibil_band": [
+    {
+      "band": "Fair (600-700)",
+      "count": 30368,
+      "good": 12241,
+      "bad": 18127,
+      "odds_good_to_bad": 0.6753,
+      "bad_rate_pct": 59.69
+    },
+    {
+      "band": "Good (700-750)",
+      "count": 207065,
+      "good": 97547,
+      "bad": 109518,
+      "odds_good_to_bad": 0.8907,
+      "bad_rate_pct": 52.89
+    },
+    {
+      "band": "Very Good (750-800)",
+      "count": 49312,
+      "good": 30514,
+      "bad": 18798,
+      "odds_good_to_bad": 1.6233,
+      "bad_rate_pct": 38.12
+    },
+    {
+      "band": "Excellent (800-900)",
+      "count": 13255,
+      "good": 9698,
+      "bad": 3557,
+      "odds_good_to_bad": 2.7265,
+      "bad_rate_pct": 26.84
+    }
+  ],
+  "odds_monotonicity": "PASS",
+  "approval_rate": 47.7,
+  "bad_rate": 33.2,
+  "bad_rate_grade": "POOR",
+  "correct_rejection_rate": 65.3,
+  "fairness_analysis": [
+    {
+      "income_band": "Low Income (<3L)",
+      "count": 59613,
+      "approval_rate_pct": 47.55,
+      "creditworthy_count": 53454,
+      "creditworthy_rejection_rate_pct": 50.15
+    },
+    {
+      "income_band": "Middle Income (3-6L)",
+      "count": 387,
+      "approval_rate_pct": 77.52,
+      "creditworthy_count": 368,
+      "creditworthy_rejection_rate_pct": 22.01
+    }
+  ],
+  "fairness_grade": "WARNING",
+  "n_estimators_actual": 400,
+  "learning_rate": 0.0472,
+  "max_depth": 5,
+  "best_hyperparameters": {
+    "l2_regularization": 0.3869,
+    "learning_rate": 0.0472,
+    "max_bins": 255,
+    "max_depth": 5,
+    "max_iter": 771,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 11
+  },
+  "n_features": 22,
   "feature_columns": [
     "cibil_score",
     "annual_income",
@@ -30,7 +196,10 @@
     "delinq_2yrs",
     "inq_last_6mths",
     "loan_to_income",
-    "credit_burden"
+    "installment_to_income",
+    "revol_bal_to_income",
+    "credit_history_length",
+    "derog_score"
   ],
   "feature_display_names": [
     "CIBIL Score",
@@ -51,7 +220,10 @@
     "Delinquencies (2yr)",
     "Inquiries (6mo)",
     "Loan-to-Income (LTI)",
-    "Total Credit Burden"
+    "Installment-to-Income",
+    "Revolving Bal-to-Income",
+    "Credit History Length",
+    "Derogatory Score"
   ],
   "encoding_maps": {
     "home_ownership": {
@@ -89,25 +261,143 @@
     }
   },
   "feature_importance": {
-    "grade_encoded": 0.0365,
-    "term_months": 0.0136,
-    "cibil_score": 0.0063,
-    "int_rate": 0.0052,
-    "loan_to_income": 0.0048,
-    "dti": 0.0039,
-    "mort_acc": 0.0027,
-    "home_encoded": 0.0021,
-    "total_acc": 0.0019,
-    "inq_last_6mths": 0.0018,
+    "grade_encoded": 0.0383,
+    "term_months": 0.0146,
+    "cibil_score": 0.0065,
+    "int_rate": 0.006,
+    "loan_to_income": 0.0055,
+    "dti": 0.0054,
+    "revol_bal_to_income": 0.0044,
+    "loan_amount": 0.0028,
+    "mort_acc": 0.0021,
+    "purpose_encoded": 0.0018,
+    "credit_history_length": 0.0017,
+    "home_encoded": 0.0016,
+    "open_acc": 0.0015,
+    "annual_income": 0.0015,
     "emp_length_years": 0.0015,
-    "purpose_encoded": 0.0013,
-    "loan_amount": 0.0012,
-    "annual_income": 0.0009,
-    "pub_rec": 0.0006,
-    "open_acc": 0.0004,
-    "delinq_2yrs": 0.0004,
+    "installment_to_income": 0.001,
+    "derog_score": 0.0008,
+    "inq_last_6mths": 0.0007,
+    "pub_rec": 0.0004,
     "revol_util": 0.0003,
-    "credit_burden": -0.0002
+    "total_acc": -0.0001,
+    "delinq_2yrs": -0.0001
+  },
+  "scenario_test_results": {
+    "passed": 11,
+    "total": 12,
+    "pass_rate": 91.7,
+    "details": [
+      {
+        "name": "1. Prime Professional (CIBIL 820, Grade A)",
+        "expected": "Approved",
+        "prediction": "Approved",
+        "confidence": 76.6,
+        "approve_prob": 76.6,
+        "reject_prob": 23.4,
+        "match": true
+      },
+      {
+        "name": "2. Senior Govt Employee (CIBIL 780)",
+        "expected": "Approved",
+        "prediction": "Approved",
+        "confidence": 76.3,
+        "approve_prob": 76.3,
+        "reject_prob": 23.7,
+        "match": true
+      },
+      {
+        "name": "3. IT Pro Small Loan (CIBIL 750, B)",
+        "expected": "Approved",
+        "prediction": "Rejected",
+        "confidence": 65.1,
+        "approve_prob": 34.9,
+        "reject_prob": 65.1,
+        "match": false
+      },
+      {
+        "name": "4. Low Income Perfect Credit (CIBIL 800)",
+        "expected": "Approved",
+        "prediction": "Approved",
+        "confidence": 62.5,
+        "approve_prob": 62.5,
+        "reject_prob": 37.5,
+        "match": true
+      },
+      {
+        "name": "5. Serial Defaulter (CIBIL 420, G)",
+        "expected": "Rejected",
+        "prediction": "Rejected",
+        "confidence": 95.8,
+        "approve_prob": 4.2,
+        "reject_prob": 95.8,
+        "match": true
+      },
+      {
+        "name": "6. Unemployed Huge Ask (CIBIL 500, F)",
+        "expected": "Rejected",
+        "prediction": "Rejected",
+        "confidence": 97.9,
+        "approve_prob": 2.1,
+        "reject_prob": 97.9,
+        "match": true
+      },
+      {
+        "name": "7. High Interest Subprime (CIBIL 550, E)",
+        "expected": "Rejected",
+        "prediction": "Rejected",
+        "confidence": 93.6,
+        "approve_prob": 6.4,
+        "reject_prob": 93.6,
+        "match": true
+      },
+      {
+        "name": "8. Maxed Out Cards (CIBIL 650, D)",
+        "expected": "Rejected",
+        "prediction": "Rejected",
+        "confidence": 95.4,
+        "approve_prob": 4.6,
+        "reject_prob": 95.4,
+        "match": true
+      },
+      {
+        "name": "9. Young Pro First Loan (CIBIL 710, B)",
+        "expected": "Borderline",
+        "prediction": "Rejected",
+        "confidence": 74.8,
+        "approve_prob": 25.2,
+        "reject_prob": 74.8,
+        "match": true
+      },
+      {
+        "name": "10. Rich but Bad CIBIL (480, E)",
+        "expected": "Rejected",
+        "prediction": "Rejected",
+        "confidence": 78.8,
+        "approve_prob": 21.2,
+        "reject_prob": 78.8,
+        "match": true
+      },
+      {
+        "name": "11. Debt Consolidation (CIBIL 680, C)",
+        "expected": "Borderline",
+        "prediction": "Rejected",
+        "confidence": 95.7,
+        "approve_prob": 4.3,
+        "reject_prob": 95.7,
+        "match": true
+      },
+      {
+        "name": "12. Retired Homeowner (CIBIL 760, A)",
+        "expected": "Approved",
+        "prediction": "Approved",
+        "confidence": 74.9,
+        "approve_prob": 74.9,
+        "reject_prob": 25.1,
+        "match": true
+      }
+    ]
   },
   "dataset_stats": {
     "total_records": 300000,
