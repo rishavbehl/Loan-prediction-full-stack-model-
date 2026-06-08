@@ -123,27 +123,29 @@ class PredictionResponse(BaseModel):
 
 # ─── Helper Functions ──────────────────────────────────────────────
 def encode_input(application: LoanApplication) -> np.ndarray:
-    """Convert application data to model-ready numpy array"""
+    """Convert application data to model-ready numpy array (v5.0 — 22 features)"""
     encoding_maps = metadata.get('encoding_maps', {})
 
-    # Encode home_ownership
+    # Encode categoricals
     home_map = encoding_maps.get('home_ownership', {})
     home_encoded = home_map.get(application.home_ownership.upper(), 3)
 
-    # Encode purpose
     purpose_map = encoding_maps.get('purpose', {})
     purpose_encoded = purpose_map.get(application.purpose.lower().strip(), 0)
 
-    # Encode grade
     grade_map = encoding_maps.get('grade', {})
     grade_encoded = grade_map.get(application.grade.upper(), 4)
 
     # Calculate composite features
     annual_inc = application.annual_income if application.annual_income > 0 else 1
     loan_to_income = application.loan_amount / annual_inc
-    credit_burden = application.dti * (application.revol_util / 100.0)
+    installment_est = application.loan_amount / application.term_months
+    installment_to_income = (installment_est * 12) / annual_inc
+    revol_bal_to_income = (application.revol_util * 100) / annual_inc
+    credit_history_length = max(0, application.total_acc - application.open_acc)
+    derog_score = application.pub_rec + application.delinq_2yrs + application.inq_last_6mths
 
-    # Feature order MUST match training:
+    # Feature order MUST match training (22 features):
     features = np.array([[
         application.cibil_score,
         application.annual_income,
@@ -163,7 +165,10 @@ def encode_input(application: LoanApplication) -> np.ndarray:
         application.delinq_2yrs,
         application.inq_last_6mths,
         loan_to_income,
-        credit_burden
+        installment_to_income,
+        revol_bal_to_income,
+        credit_history_length,
+        derog_score
     ]])
 
     return features
